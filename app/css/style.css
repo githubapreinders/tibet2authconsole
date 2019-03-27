@@ -1,3 +1,26 @@
 .myheader {
-  font-size: 40px;
-  color: fuchsia; }
+  color: lightslategrey; }
+
+.flexrow {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.filler {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.form-group {
+  margin-left: 5%;
+  margin-right: 5%; }
+
+.guigreen, .guired {
+  margin: 10px;
+  width: 200px; }
+
+.infobutton {
+  margin-top: 10px;
+  margin-right: 10px; }

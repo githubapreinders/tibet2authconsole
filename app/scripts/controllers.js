@@ -8,11 +8,23 @@
 
         console.log('IndexController');
         var vm = this;
+        
         vm.submitForm = submitForm;
+        
+        
         vm.getLandingPage = getLandingPage;
-        vm.message = "Angular Controller is wiring up";
+        vm.message = "Claim Application";
         vm.htmlContent = "Filling this container with some server side html";
 
+        getqueues();
+        
+        function getqueues()
+        {
+            vm.queues = StaticDataFactory.getQueues();
+            console.log("reading...", vm.queues);
+        }
+        
+        
         function submitForm()
         {
         	vm.distortedText = "";

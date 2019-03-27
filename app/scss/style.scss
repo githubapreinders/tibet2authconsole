@@ -1,5 +1,33 @@
 .myheader
 {
-	font-size:40px;
-	color: fuchsia;
+	color: lightslategrey;
+}
+
+.flexrow
+{
+display:flex;
+}
+
+.filler
+{
+	flex-grow: 1;
+}
+
+.form-group
+{
+	margin-left:5%;
+	margin-right:5%;
+}
+
+.guigreen, .guired
+{
+	margin: 10px;
+	width : 200px;
+
+}
+
+.infobutton
+{
+	margin-top:10px;
+	margin-right:10px;
 }

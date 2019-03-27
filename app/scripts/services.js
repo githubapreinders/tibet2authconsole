@@ -6,10 +6,24 @@
     app.constant('API_URL', "http://localhost:3000");
     app.factory('StaticDataFactory', function($http, API_URL) 
     {
+        var thejson = 
+        
+            
+            [
+                {"queue" : "37498535498"},
+                {"queue" : "47569983798"}
+            ]
+        
 
         return{
             getLandingPage : getLandingPage,
+            getQueues : getQueues
         };
+
+        function getQueues()
+        {
+            return  thejson;                
+        }
 
         function getLandingPage()
         {

@@ -1,15 +1,41 @@
 
 <div ng-controller="IndexController">
+<div class="flexrow">
+<div class="filler"></div>
 <h1  class="myheader" >{{vm.message}}</h1>
-<form >
-	<input type="text" ng-model="vm.distortedText">
-    <button ng-click = "vm.submitForm()">Clear</button>
-    <button ng-click="vm.getLandingPage()">InsertHtml</button>
-</form>
-    <div >{{vm.distortedText}}</div>
-<br><br>
-<div >
-    <custom-directive></custom-directive>
+<div class="filler"></div>
+ 
+<span id="btn_toggle"   class="fa-stack  infobutton   " >
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-info fa-stack-1x "></i>
+    </span>
+
 </div>
+    
+    <div class="form-group">
+      <label for="enterq">Queue Name</label>
+      <input type="text" class="form-control" id="enterq"  placeholder="start typing a queue...">
+    </div>
+    <div class="form-group">
+      <label for="selectldap">LDAP-group</label>
+      <select  class="form-control input-xlarge" id="selectldap" placeholder="Select ldap group" />
+    </div>
+    
+    <div class="flexrow">
+        <div class="filler"/>
+        <button ng-click="claimqueue()" class="btn  btn-lg btn-success guigreen">CLAIM</button>
+        <button ng-click="unclaimqueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button>
+        <div class="filler"/>
+    </div>
+
+
+
+<div ng-repeat = "item in vm.queues">
+    <div ng-click="vm.selectqueue(index)">
+        {{item.queue}}
+    </div>
+</div>
+
+
 
 </div>
