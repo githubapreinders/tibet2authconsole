@@ -1,42 +1,62 @@
 (function(){
 
 'use strict';
-    var app = angular.module('confab');
+    var app = angular.module('claimapp');
 
     app.constant('API_URL', "http://localhost:3000");
-    app.factory('StaticDataFactory', function($http, API_URL) 
+    app.factory('StaticDataFactory', function($http, API_URL)
     {
-        var thejson = 
-        
-            
-            [
-                {"queue" : "37498535498"},
-                {"queue" : "47569983798"}
-            ]
         
 
         return{
-            getLandingPage : getLandingPage,
-            getQueues : getQueues
+            getAllTibcoQueues : getAllTibcoQueues,
+            claimQueue : claimQueue,
+            unClaimQueue :unClaimQueue
         };
 
-        function getQueues()
+        function claimQueue(queue,  claimrole, role)
         {
-            return  thejson;                
+            var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
+            console.log(xmlstring);
+            return $http({method: 'POST',url: API_URL + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
+            .then(function success(response)
+            {
+                return response;
+            },function failure(failmessage)
+            {
+                return failmessage;
+            });
         }
 
-        function getLandingPage()
+        function unClaimQueue(queue, claimrole, role)
         {
-          return $http.get(API_URL + '/').then(function(data)
+            var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
+            console.log(xmlstring);
+            return $http({method: 'POST',url: API_URL + '/unclaimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
+            .then(function success(response)
             {
-                console.info("returnxing json from server with status ",data.status);
-                return data;
-                
+
+                return response;
+            },function failure(failmessage)
+            {
+                return failmessage;
+            });
+        }
+
+        function getAllTibcoQueues()
+        {
+          return $http.get(API_URL + '/getalltibcoqueues').then(function(data)
+            {
+                var afterCnv = xml.xmlToJSON(data.data)
+
+                console.info("returnxing json from server with status ",afterCnv);
+                return afterCnv;
+
             },function (error)
             {
               console.log("server error :", error );
             });
-        }  
+        }
 
     })
 
