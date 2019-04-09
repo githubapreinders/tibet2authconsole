@@ -129,6 +129,7 @@
 
         function claimQueue()
         {
+            Pace.start();
             console.log(vm.selecteditem, vm.selectedLdapGroup, vm.selectedManagementRole);
 
             if (vm.selectedLdapGroup.length === 0 || vm.selectedManagementRole.length === 0 )
