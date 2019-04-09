@@ -1,11 +1,11 @@
 
-<div ng-controller="IndexController">
+
 <div class="flexrow">
 <div class="filler"></div>
 <h1  class="myheader" >{{vm.message}}</h1>
 <div class="filler"></div>
 
-<span id="btn_toggle"   class="fa-stack  infobutton   " >
+<span id="btn_toggle"   class="fa-stack  infobutton " ng-click = "vm.showinfomodal()">
         <i class="fa fa-square-o fa-stack-2x"></i>
         <i class="fa fa-info fa-stack-1x "></i>
     </span>
@@ -78,11 +78,8 @@
             </div>
 
             <div style="width:5%"></div>
-
         </div>
-
 </div>
-
 
 
 <div ng-show="vm.showme" class="centerme">
@@ -93,13 +90,5 @@
         <div class="clearfix" ng-if="($index+1)%9==0"></div>
         <div ng-repeat-end=""></div>
     </div>
-</div>
-
-
-
-
-
-
-
 </div>
 

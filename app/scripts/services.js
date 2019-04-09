@@ -3,7 +3,7 @@
 'use strict';
     var app = angular.module('claimapp');
 
-    app.constant('API_URL', "http://localhost:3000");
+    app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
     app.factory('StaticDataFactory', function($http, API_URL)
     {
         
@@ -17,14 +17,13 @@
         function claimQueue(queue,  claimrole, role)
         {
             var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
-            console.log(xmlstring);
             return $http({method: 'POST',url: API_URL + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
                 return response;
             },function failure(failmessage)
             {
-                return failmessage;
+            	return failmessage;
             });
         }
 
@@ -32,13 +31,14 @@
         {
             var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
             console.log(xmlstring);
-            return $http({method: 'POST',url: API_URL + '/unclaimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
+            return $http({method: 'POST',url: API_URL + '/unclaimqueues', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
-
+            	console.log('reply from server:' , response.data);
                 return response;
             },function failure(failmessage)
             {
+            	console.log('fail from server:', failmessage.data);
                 return failmessage;
             });
         }
@@ -57,15 +57,6 @@
               console.log("server error :", error );
             });
         }
-
     })
-
-    .directive('customDirective', function($compile)
-    {
-        return {
-        restrict:  'E',
-        template:'<div  ng-bind-html="vm.htmlContent"></div>'
-        };
-    });
 
 })();   

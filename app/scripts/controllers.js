@@ -14,6 +14,7 @@
         vm.claimQueue = claimQueue;
         vm.selectQueue = selectQueue;
         vm.showResultDialog = showResultDialog;
+        vm.showinfomodal = showinfomodal;
         vm.erase = erase;
 
         //Global variables
@@ -47,11 +48,11 @@
                 return;
             }
             vm.queuelistFiltered=[];
-            vm.queues.forEach(function(word)
+            vm.queues.forEach(function(queueobject)
             {
-                if(word.toUpperCase().includes(current.toUpperCase()))
+                if(queueobject.name.toUpperCase().includes(current.toUpperCase()))
                 {
-                    vm.queuelistFiltered.push(word);
+                    vm.queuelistFiltered.push(queueobject.name);
                 }
             });
 
@@ -67,19 +68,52 @@
         //Responding to the dropdown. The displayed list will contain the queues with the same businessdomain and applicationname.
         function selectQueue(index)
         {
-            console.log("businessunit: ", vm.selecteditem.split('.')[1]);
-            console.log("servappname: ", vm.selecteditem.split('.')[vm.selecteditem.split('.').length-3]);
+            var qnamearray = vm.selecteditem.split('.');
+            switch(qnamearray[0].toUpperCase())
+            {
+	            case "ESB" : 
+	            {
+	            	console.log("esb");
+	            	if(qnamearray.length === 9)
+	            	{
+	            		vm.selectedservapp = vm.selecteditem.split('.')[6];    		
+	            	}
+	            	if(qnamearray.length === 8)
+	            	{
+	            		vm.selectedservapp = vm.selecteditem.split('.')[5];
+	            	}
+	            	break;
+	            	
+	            }
+	            case "P2P" : 
+	            {
+	            	console.log("p2p");
+	            	vm.selectedservapp = vm.selecteditem.split('.')[3];
+	            	break;
+	            }
+            }
+            
             vm.selectedbusinessdomain = vm.selecteditem.split('.')[1];
-            vm.selectedservapp = vm.selecteditem.split('.')[vm.selecteditem.split('.').length-3];
-            vm.applist = [];
+            
+        	console.log("businessunit: ", vm.selectedbusinessdomain);
+            console.log("servappname: ", vm.selectedservapp);
+            
+            var appobj = {};
 
             vm.queuelistFiltered.forEach(function(item)
             {
-                if(item.split('.')[1] === vm.selectedbusinessdomain && item.split('.')[vm.selecteditem.split('.').length-3] === vm.selectedservapp)
+                if(item.split('.')[1] === vm.selectedbusinessdomain && item.includes('.' + vm.selectedservapp + '.'))
                 {
-                    vm.applist.push(item);
+                	appobj[item] = 'true';
                 }
             })
+            
+            vm.applist = [];
+            Object.keys(appobj).forEach(function(key) 
+            {
+            		vm.applist.push(key);
+            });
+            
         }
 
         //Getting all the available Tibco queues
@@ -87,8 +121,9 @@
         {
             StaticDataFactory.getAllTibcoQueues().then(function(data)
             {
-                vm.queues = data.queues.queueName;
+                vm.queues = data.queues.queue;
                 document.getElementById("enterq").focus();
+                console.log("asd" , vm.queues[0].name);
             });
         }
 
@@ -115,14 +150,15 @@
             return StaticDataFactory.unClaimQueue(vm.selecteditem,  vm.selectedManagementRole,vm.selectedLdapGroup)
             .then(function(res)
             {
-                console.log("returning unclaim" ,res);
+            	showResultDialog(res);
+            }, function (error)
+            {
+            	showResultDialog(error);
             });
         }
 
-
         function showResultDialog(serverreponse)
         {
-
             var modalInstance = $uibModal.open(
             {
                 templateUrl : "./views/claimresponse.html",
@@ -135,18 +171,17 @@
             });
             modalInstance.result.then(
             function success(resp) {
-                // console.log("response: " , resp);
-                vm.iaf_url = resp.iaf_url;
-                login(resp.username, resp.password);
+               
             }, function failure(err) {
-                // console.log("no result from modal...");
+               
             });
         }
 
-
-
-
-
+        function showinfomodal()
+        {
+        	console.log("show info....");
+        	showResultDialog({data: "Some info about the application."})
+        }
 
     })
 
@@ -154,7 +189,7 @@
     {
         console.log("loading results...");
         var vm2 = this;
-        vm2.message = response.data.message;
+        vm2.message = response.data;
         vm2.closeModal = closeModal;
 
         function closeModal()
