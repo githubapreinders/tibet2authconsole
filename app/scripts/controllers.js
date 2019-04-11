@@ -22,14 +22,15 @@
         vm.selectedservapp = "";
         vm.itemselected  = "false";
         vm.selectedLdapGroup = "";
-        vm.selectedManagementRole = "";
+        vm.selectedManagementRole = "" ;
 
         vm.message = "Claim Application";
         vm.ldapgroup = "BeheerSectie4"
-        vm.claimroles = ["rol1","rol2","rol3","rol4","rol5"];
+        vm.claimRoles = [];
 
         //Initialisation
         getqueues();
+        getclaimrolelist();
 
 
         //Watching the inputbox for keystrokes, adding it to a filtered list.
@@ -92,12 +93,12 @@
 	            	break;
 	            }
             }
-            
+
             vm.selectedbusinessdomain = vm.selecteditem.split('.')[1];
-            
+
         	console.log("businessunit: ", vm.selectedbusinessdomain);
             console.log("servappname: ", vm.selectedservapp);
-            
+
             var appobj = {};
 
             vm.queuelistFiltered.forEach(function(item)
@@ -107,13 +108,23 @@
                 	appobj[item] = 'true';
                 }
             })
-            
+
             vm.applist = [];
             Object.keys(appobj).forEach(function(key) 
             {
             		vm.applist.push(key);
             });
-            
+
+        }
+
+        //Getting a list of all available claim roles
+        function getclaimrolelist()
+        {
+            StaticDataFactory.GetClaimRoleList().then(function(data)
+            {
+                vm.claimRoles = data.roles.role;
+                console.log("ClaimRoles die binnenkomen:", data.roles.role[1]);
+            });
         }
 
         //Getting all the available Tibco queues

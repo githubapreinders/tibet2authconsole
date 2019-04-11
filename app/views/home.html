@@ -70,8 +70,8 @@
                     <input  ng-model="vm.selectedLdapGroup" class="form-control "  id="selectldap" placeholder="Please enter your LDAP group" />
                     </div>
                     <div class="form-group btn-lg" style="margin-left: 0px; margin-right:5px;">
-                            <label for="selectclaimrole">Management Role</label>
-                        <input ng-model="vm.selectedManagementRole"  class="form-control "  id="selectclaimrole" placeholder="Select claimrole for this Q" />
+                    <label for="selectclaimrole">Management Role</label>
+                    <select class="form-control"  id="selectclaimrole" class="form-control" ng-model="vm.selectedManagementRole" ng-options="x for x in vm.claimRoles" />
                     </div>
                 </div>
 

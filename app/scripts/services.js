@@ -11,7 +11,8 @@
         return{
             getAllTibcoQueues : getAllTibcoQueues,
             claimQueue : claimQueue,
-            unClaimQueue :unClaimQueue
+            unClaimQueue :unClaimQueue,
+            GetClaimRoleList : GetClaimRoleList
         };
 
         function claimQueue(queue,  claimrole, role)
@@ -49,7 +50,7 @@
             {
                 var afterCnv = xml.xmlToJSON(data.data)
 
-                console.info("returnxing json from server with status ",afterCnv);
+                console.info("returning json from server with status ",afterCnv);
                 return afterCnv;
 
             },function (error)
@@ -57,6 +58,23 @@
               console.log("server error :", error );
             });
         }
+
+        function GetClaimRoleList()
+        {
+          return $http.get(API_URL + '/getclaimrolelist').then(function(data)
+            {
+                var afterCnv = xml.xmlToJSON(data.data)
+
+                console.log("functie get claimrolelist ophalen", afterCnv);
+                return afterCnv;
+
+            },function (error)
+            {
+              console.log("server error :", error );
+              return error;
+            });
+        }
+
     })
 
 })();   
