@@ -25,7 +25,9 @@
         vm.selectedManagementRole = "" ;
 
         vm.message = "Claim Application";
-        vm.ldapgroup = "BeheerSectie4"
+        vm.message2 = "My Claimed Queues";
+        vm.dummy = "dummy informatie voor de ingelogde user";
+        vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
 
         //Initialisation

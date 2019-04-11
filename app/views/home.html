@@ -37,13 +37,12 @@
                 <select  class="form-control"  id="selectclaimrole" ng-options="item for item in vm.queuelistFiltered" ng-model="vm.selecteditem" ng-change="vm.selectQueue()">
                 </select>
             </div>
-        </div>
+</div>
 
         <br><br><br><br>
 
-
-    <div   ng-show="vm.selecteditem.length > 0 " class="flexrow">
-
+    <!--altijd zichtbaar <div   ng-show="vm.selecteditem.length > 0 " class="flexrow"> onderstaande weghalen--> 
+<div class="flexrow" > 
             <div style="width:5%"></div>
             <div style="width:45%;">
 
@@ -60,7 +59,7 @@
                 <div class="flexrow">
                     <div class="filler"/>
                     <button ng-click="vm.claimQueue()" class="btn  btn-lg btn-success guigreen">CLAIM</button>
-                    <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button>
+                    <!-- <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button> -->
                 </div>
 
                 <div class="flexrow">
@@ -78,8 +77,45 @@
             </div>
 
             <div style="width:5%"></div>
-        </div>
 </div>
+<!-- </div> -->
+<br>
+<hr>
+<br>
+<!-- My Claimed Queues -->
+<div class="flexrow">
+        <div class="filler"></div>
+        <h1  class="myheader" >{{vm.message2}}</h1>
+        <div class="filler"></div>
+</div>
+<!-- 
+Repeater my claimed queues -->
+<div class="flexrow" > 
+        <div style="width:5%"></div>
+        <div style="width:45%;">
+
+            <label>Businessdomain: </label><span class="emphasis">{{vm.dummy}}</span><br>
+            <label>Application name:</label>  <span class="emphasis"> {{vm.dummy}}</span><br>
+            <label>Management role:</label>  <span class="emphasis"> {{vm.dummy}}</span><br>
+            <label>Queues:</label>
+            <div class="centerme"  ng-repeat = "item in vm.applist" ng-class-odd="'odd'" 
+            ng-class-even="'even'">
+                {{item}}
+            </div>
+        </div>
+
+       <div style="width:45%; display: flex; flex-direction: column">
+            <div class="flexrow">
+                <div class="filler"/>
+                <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button>
+            </div>
+
+        </div>
+
+        <div style="width:5%"></div>
+</div>
+
+
 
 
 <div ng-show="vm.showme" class="centerme">
