@@ -29,12 +29,56 @@
         vm.dummy = "dummy informatie voor de ingelogde user";
         vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
+        vm.myclaimedroles = {
+            "claimedrecords": {
+              "record": [
+                {
+                  "bd": "bd-dummy",
+                  "sa": "sa-dummy",
+                  "cr": "piet puk",
+                  "q": [
+                    "q1",
+                    "q2",
+                    "q3",
+                    "q9",
+                    "q10",
+                    "q11",
+                    "q12",
+                    "q13",
+                    "q14"
+                  ]
+                },
+                {
+                  "bd": "bd-dummy2",
+                  "sa": "sa-dummy2",
+                  "cr": "piet puk",
+                  "q": [
+                    "q4",
+                    "q5",
+                    "q6"
+                  ]
+                },
+                {
+                  "bd": "bd-dummy3",
+                  "sa": "sa-dummy3",
+                  "cr": "rol3",
+                  "q": [
+                    "q7",
+                    "q8",
+                    "q9"
+                  ]
+                }
+              ]
+            }
+          }
+
+          console.log("nieuw project Get Claimed Records",vm.myclaimedroles.claimedrecords.record);
 
         //Initialisation
         getqueues();
         getclaimrolelist();
-
-
+        // getclaimedrecordslist();
+       
         //Watching the inputbox for keystrokes, adding it to a filtered list.
         $scope.$watch(function()
         {
@@ -74,21 +118,21 @@
             var qnamearray = vm.selecteditem.split('.');
             switch(qnamearray[0].toUpperCase())
             {
-	            case "ESB" : 
+	            case "ESB" :
 	            {
 	            	console.log("esb");
 	            	if(qnamearray.length === 9)
 	            	{
-	            		vm.selectedservapp = vm.selecteditem.split('.')[6];    		
+	            		vm.selectedservapp = vm.selecteditem.split('.')[6];
 	            	}
 	            	if(qnamearray.length === 8)
 	            	{
 	            		vm.selectedservapp = vm.selecteditem.split('.')[5];
 	            	}
 	            	break;
-	            	
+
 	            }
-	            case "P2P" : 
+	            case "P2P" :
 	            {
 	            	console.log("p2p");
 	            	vm.selectedservapp = vm.selecteditem.split('.')[3];
@@ -112,7 +156,7 @@
             })
 
             vm.applist = [];
-            Object.keys(appobj).forEach(function(key) 
+            Object.keys(appobj).forEach(function(key)
             {
             		vm.applist.push(key);
             });
@@ -128,6 +172,16 @@
                 console.log("ClaimRoles die binnenkomen:", data.roles.role[1]);
             });
         }
+
+        //Getting a list of all my claimed records
+        // function getclaimedrecordslist()
+        // {
+        //     StaticDataFactory.GetClaimedRecordsList().then(function(data)
+        //     {
+        //         vm.claimedRoles = data.roles.role;
+        //         console.log("ClaimRecords die binnenkomen:", data.roles.role[1]);
+        //     });
+        // }
 
         //Getting all the available Tibco queues
         function getqueues()
@@ -177,7 +231,7 @@
             {
                 templateUrl : "./views/claimresponse.html",
                 controller : "showResultDialog as vm2",
-                size : "md",
+                size : "lg",
                 resolve : {response : function ()
                     {
                         return serverreponse;
@@ -185,9 +239,9 @@
             });
             modalInstance.result.then(
             function success(resp) {
-               
+
             }, function failure(err) {
-               
+
             });
         }
 
