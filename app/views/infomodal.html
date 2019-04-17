@@ -1,0 +1,35 @@
+
+<div class="modal-header">
+    <h3 style="text-align: center;" class="modal-title" id="modal-title">Information</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    
+    <h4>Claim Application</h4>
+    <div>Please follow the next steps to claim an application:
+        <ul>
+        <li>Enter the first 10 digits of the queuename in de search bar you want to claim</li>
+        <li>Use the dropdown in "available queues" to find the queue name of the application you want to claim</li>
+        Once the queue is selected, the dependent queues will be shown.<br><b>Please note: you're claiming all of these queues!</b>
+        <li>Enter the LDAP-group</li>
+        <li>Select the management role</li>
+        <li>Press the "claim" button</li>
+    </ul>
+        You'll get a message claiming the queues has succeeded or not. If it has succeeded, your Business Unit is from now on the owner of these queues. If another Business Unit wants to be the owner of your claimed queue(s), you have to unclaim te queue first.</div>
+<br>
+<h4>My Claimed Queues</h4>
+<div>In this overview you will see which queues are belonging to you.
+        If you want to unclaim a queue, just select it from the list and press the "unclaim"-button.
+        <p></p>
+        <b>Please note: The queues in the same list are dependent to each other and will be unclaimed as well.</b></div>
+<div><br>
+Need some help? Please contact: helpdesk@integrationpartners.nl.
+</div>
+</div>
+<div class="modal-footer">
+    <div style="display:flex; width:100%;">
+        <div class="filler"></div>
+        <button class="btn btn-primary" type="button" ng-click="vm3.closeModal()">OKAY</button>
+        <div class="filler"></div>
+    </div>
+</div>
+
