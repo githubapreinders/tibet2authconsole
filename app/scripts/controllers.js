@@ -26,7 +26,7 @@
         vm.selectedManagementRole = "" ;
 
         vm.message = "Claim Application";
-        vm.message2 = "My Claimed Queues";
+        vm.message2 = "My Claimed Applications";
         vm.dummy = "dummy informatie voor de ingelogde user";
         vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
