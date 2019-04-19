@@ -1,130 +1,130 @@
-
-
 <div class="flexrow">
-<div class="filler"></div>
-<h1  class="myheader" >{{vm.message}}</h1>
-<div class="filler"></div>
+    <div class="filler"></div>
+    <h1 class="myheader">{{vm.message}}</h1>
+    <div class="filler"></div>
 
-<span id="btn_toggle"   class="fa-stack  infobutton " ng-click = "vm.showinfomodal()">
+    <span id="btn_toggle" class="fa-stack  infobutton " ng-click="vm.showinfomodal()">
         <i class="fa fa-square-o fa-stack-2x"></i>
         <i class="fa fa-info fa-stack-1x "></i>
     </span>
 </div>
 
+<br><br><br><br>
+
+<div class="flexrow">
+    <div style="display: flex; flex-direction: column;  margin-left:5%;">
+        <label>Search</label>
+        <div class="input-group add-on" id="theinputgroup">
+            <input style="width : 400px;" type="text" class="form-control" id="enterq"
+                placeholder="start typing a queue..." ng-model="vm.inputbox" />
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="vm.erase()"><i
+                        class="glyphicon glyphicon-erase"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group filler">
+        <label for="selectclaimrole">Available Queues</label>
+        <select class="form-control" id="selectclaimrole" ng-options="item for item in vm.queuelistFiltered"
+            ng-model="vm.selecteditem" ng-change="vm.selectQueue()">
+        </select>
+    </div>
+</div>
 
 <br><br><br><br>
 
+<div   ng-show="vm.selecteditem.length > 0 " class="flexrow"> 
+<!-- <div class="flexrow"> om het onderstaande altijd zichtbaar te maken, deze regel aan, bovenstaande regel uit-->
+    <div style="width:5%"></div>
+    <div style="width:45%;">
 
+        <label>Businessdomain: </label><span class="emphasis">{{vm.selectedbusinessdomain}}</span><br>
+        <label>Application name:</label> <span class="emphasis"> {{vm.selectedservapp}}</span>
+        <p></p>
+        <h2>Queues</h2>
+        <div class="centerme" ng-repeat="item in vm.applist">
+            {{item}}
+        </div>
+    </div>
 
+    <div style="width:45%; display: flex; flex-direction: column">
+        <div class="flexrow">
+            <div class="filler" />
+            <button ng-click="vm.claimQueue()" class="btn  btn-lg btn-success guigreen">CLAIM</button>
+        </div>
 
-
-
-<div class="flexrow">
-            <div style= "display: flex; flex-direction: column;  margin-left:5%;">
-                <label>Searching</label>
-                <div class="input-group add-on" id="theinputgroup">
-                    <input style = "width : 400px;" type="text"  class="form-control" id="enterq"  placeholder="start typing a queue..." ng-model="vm.inputbox"/>
-                    <div class="input-group-btn" >
-                        <button  class="btn btn-default" type="button" ng-click="vm.erase()"><i
-                            class="glyphicon glyphicon-erase"></i>
-                        </button>
-                    </div>
-                </div>
+        <div class="flexrow">
+            <div class="filler" />
+            <div class="form-group btn-lg" style="margin:0px;">
+                <label for="selectldap">LDAP-group</label>
+                <input ng-model="vm.selectedLdapGroup" class="form-control " id="selectldap"
+                    placeholder="Please enter your LDAP group" />
             </div>
-
-            <div class="form-group filler">
-                <label for="selectclaimrole">Available Queues</label>
-                <select  class="form-control"  id="selectclaimrole" ng-options="item for item in vm.queuelistFiltered" ng-model="vm.selecteditem" ng-change="vm.selectQueue()">
-                </select>
+            <div class="form-group btn-lg" style="margin-left: 0px; margin-right:5px;">
+                <label for="selectclaimrole">Management Role</label>
+                <select class="form-control" id="selectclaimrole" class="form-control"
+                    ng-model="vm.selectedManagementRole" ng-options="x for x in vm.claimRoles" />
             </div>
+        </div>
+
+    </div>
+
+    <div style="width:5%"></div>
 </div>
-
-        <br><br><br><br>
-
-    <!--altijd zichtbaar <div   ng-show="vm.selecteditem.length > 0 " class="flexrow"> onderstaande weghalen--> 
-<div class="flexrow" > 
-            <div style="width:5%"></div>
-            <div style="width:45%;">
-
-                <label>Businessdomain: </label><span class="emphasis">{{vm.selectedbusinessdomain}}</span><br>
-                <label>Application name:</label>  <span class="emphasis"> {{vm.selectedservapp}}</span>
-                <p></p>
-                <h2>Queues</h2>
-                <div class="centerme"  ng-repeat = "item in vm.applist">
-                    {{item}}
-                </div>
-            </div>
-
-           <div style="width:45%; display: flex; flex-direction: column">
-                <div class="flexrow">
-                    <div class="filler"/>
-                    <button ng-click="vm.claimQueue()" class="btn  btn-lg btn-success guigreen">CLAIM</button>
-                    <!-- <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button> -->
-                </div>
-
-                <div class="flexrow">
-                        <div class="filler"/>
-                    <div class="form-group btn-lg" style="margin:0px;">
-                    <label for="selectldap">LDAP-group</label>
-                    <input  ng-model="vm.selectedLdapGroup" class="form-control "  id="selectldap" placeholder="Please enter your LDAP group" />
-                    </div>
-                    <div class="form-group btn-lg" style="margin-left: 0px; margin-right:5px;">
-                    <label for="selectclaimrole">Management Role</label>
-                    <select class="form-control"  id="selectclaimrole" class="form-control" ng-model="vm.selectedManagementRole" ng-options="x for x in vm.claimRoles" />
-                    </div>
-                </div>
-
-            </div>
-
-            <div style="width:5%"></div>
-</div>
-<!-- </div> -->
 <br>
 <hr>
 <br>
-<!-- My Claimed Queues -->
+<!-- My Claimed Queues header -->
 <div class="flexrow">
-        <div class="filler"></div>
-        <h1  class="myheader" >{{vm.message2}}</h1>
-        <div class="filler"></div>
+    <div class="filler"></div>
+    <h1 class="myheader">{{vm.message2}}</h1>
+    <div class="filler"></div>
 </div>
-<!-- 
-Repeater my claimed queues -->
-<div class="flexrow" > 
-        <div style="width:5%"></div>
-        <div style="width:45%;">
+<!-- Repeater my claimed queues -->
+<div class="flexrow">
+    <div style="width:5%"></div>
+    <div style="width:90%;">
 
-            <label>Businessdomain: </label><span class="emphasis">{{vm.dummy}}</span><br>
-            <label>Application name:</label>  <span class="emphasis"> {{vm.dummy}}</span><br>
-            <label>Management role:</label>  <span class="emphasis"> {{vm.dummy}}</span><br>
-            <label>Queues:</label>
-            <div class="centerme"  ng-repeat = "item in vm.applist" ng-class-odd="'odd'" 
+        <div class="centerme" ng-repeat="x in vm.myclaimedroles.claimedrecords.record" ng-class-odd="'odd'"
             ng-class-even="'even'">
-                {{item}}
+            <div class="row row-eq-height">
+                <div class="claimedinfo col-sm-9">
+                    <label>Businessdomain: </label><span class="emphasis">{{x.bd}}</span><br>
+                    <label>Application name:</label> <span class="emphasis">{{x.sa}}</span><br>
+                    <label>Management role:</label> <span class="emphasis"> {{x.cr}}</span><br>
+                    <!-- <label>Alle q's:</label>  <span class="emphasis"> {{x.q}}</span><br> -->
+                    <label>Queues:</label>
+                    <div class="centerme" ng-repeat="x in x.q">
+                        {{x}}
+                    </div>
+                </div>
+
+
+                <div class="myunclaim text-right">
+                    <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button>
+
+                </div>
             </div>
         </div>
+    </div>
 
-       <div style="width:45%; display: flex; flex-direction: column">
-            <div class="flexrow">
-                <div class="filler"/>
-                <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger guired">UNCLAIM</button>
-            </div>
 
-        </div>
 
-        <div style="width:5%"></div>
+
+    <div style="width:5%"></div>
 </div>
-
-
 
 
 <div ng-show="vm.showme" class="centerme">
-    <div class="row myrow" >
-            <div  ng-repeat-start="item in vm.queuelistFiltered" >
-                <div ng-click="vm.selectQueue($index)">{{item}}</div>
-            </div>
+    <div class="row myrow">
+        <div ng-repeat-start="item in vm.queuelistFiltered">
+            <div ng-click="vm.selectQueue($index)">{{item}}</div>
+        </div>
         <div class="clearfix" ng-if="($index+1)%9==0"></div>
         <div ng-repeat-end=""></div>
     </div>
 </div>
 
+<br>

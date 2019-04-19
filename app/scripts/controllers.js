@@ -15,6 +15,7 @@
         vm.selectQueue = selectQueue;
         vm.showResultDialog = showResultDialog;
         vm.showinfomodal = showinfomodal;
+        vm.showinfomodal2 = showinfomodal2;
         vm.erase = erase;
 
         //Global variables
@@ -29,12 +30,57 @@
         vm.dummy = "dummy informatie voor de ingelogde user";
         vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
+        vm.myclaimedroles = {
+            "claimedrecords": {
+              "record": [
+                {
+                  "bd": "CustomerAdministration",
+                  "sa": "PartyMovement",
+                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
+                  "cr": "GRAPAB-TIBET2-NNPENSIONS",
+                  "q": [
+                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request",
+                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request.BPM13",
+                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request.Prov",
+                    "P2P.CustomerAdministration.PartyMovement.MoveParty.Request"
+                  ]
+                },
+                {
+                  "bd": "Webenvironment",
+                  "sa": "AccessRightsManagement",
+                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
+                  "cr": "GRAPAB-TIBET2-NNPENSIONS",
+                  "q": [
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.1.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.2.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.3.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.4.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.5.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.6.Request",
+                    "ESB.Webenvironment.BS.AccessRightsManagement.RightsManagement.1.GetUserAndOfficeDataIntermediary.2.Request"
+                  ]
+                },
+                {
+                  "bd": "PensionsSMB",
+                  "sa": "ArchivingDocument",
+                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
+                  "cr": "GRAPAB-TIBET2-NNBANK",
+                  "q": [
+                    "ESB.PensionsSMB.BS.Document.ArchivingDocument.1.FindDocument.1.Request",
+                    "ESB.PensionsSMB.BS.Document.ArchivingDocument.1.GetDocument.1.Request"
+                  ]
+                }
+              ]
+            }
+          }
+
+          console.log("nieuw project Get Claimed Records",vm.myclaimedroles.claimedrecords.record);
 
         //Initialisation
         getqueues();
         getclaimrolelist();
-
-
+        // getclaimedrecordslist();
+       
         //Watching the inputbox for keystrokes, adding it to a filtered list.
         $scope.$watch(function()
         {
@@ -74,21 +120,21 @@
             var qnamearray = vm.selecteditem.split('.');
             switch(qnamearray[0].toUpperCase())
             {
-	            case "ESB" : 
+	            case "ESB" :
 	            {
 	            	console.log("esb");
 	            	if(qnamearray.length === 9)
 	            	{
-	            		vm.selectedservapp = vm.selecteditem.split('.')[6];    		
+	            		vm.selectedservapp = vm.selecteditem.split('.')[6];
 	            	}
 	            	if(qnamearray.length === 8)
 	            	{
 	            		vm.selectedservapp = vm.selecteditem.split('.')[5];
 	            	}
 	            	break;
-	            	
+
 	            }
-	            case "P2P" : 
+	            case "P2P" :
 	            {
 	            	console.log("p2p");
 	            	vm.selectedservapp = vm.selecteditem.split('.')[3];
@@ -112,7 +158,7 @@
             })
 
             vm.applist = [];
-            Object.keys(appobj).forEach(function(key) 
+            Object.keys(appobj).forEach(function(key)
             {
             		vm.applist.push(key);
             });
@@ -128,6 +174,16 @@
                 console.log("ClaimRoles die binnenkomen:", data.roles.role[1]);
             });
         }
+
+        //Getting a list of all my claimed records
+        // function getclaimedrecordslist()
+        // {
+        //     StaticDataFactory.GetClaimedRecordsList().then(function(data)
+        //     {
+        //         vm.claimedRoles = data.roles.role;
+        //         console.log("ClaimRecords die binnenkomen:", data.roles.role[1]);
+        //     });
+        // }
 
         //Getting all the available Tibco queues
         function getqueues()
@@ -177,7 +233,7 @@
             {
                 templateUrl : "./views/claimresponse.html",
                 controller : "showResultDialog as vm2",
-                size : "md",
+                size : "lg",
                 resolve : {response : function ()
                     {
                         return serverreponse;
@@ -185,19 +241,58 @@
             });
             modalInstance.result.then(
             function success(resp) {
-               
+
             }, function failure(err) {
-               
+
             });
         }
 
+        
+
         function showinfomodal()
         {
-        	console.log("show info....");
-        	showResultDialog({data: "Some info about the application."})
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl : "./views/infomodal.html",
+                    controller : "showInfoModal as vm3",
+                    size : "lg"
+                    
+                });
+                modalInstance.result.then(
+                function success(resp) {
+    
+                }, function failure(err) {
+    
+                });
+
+
+
+        	// console.log("show info claim application....");
+        	// showResultDialog({data: "Some info about application claim."})
+        }
+
+        function showinfomodal2()
+        {
+        	console.log("show info my claimed queues....");
+        	showResultDialog({data: "Some info about show info my claimed queues."})
         }
 
     })
+
+//info modal rechts bovenin
+    .controller('showInfoModal', function($uibModalInstance)
+    {
+        console.log("laat info modal zien...");
+        
+        var vm3 = this;
+        vm3.closeModal = closeModal;
+
+        function closeModal()
+        {
+           $uibModalInstance.dismiss();
+        }
+    })
+
 
     .controller('showResultDialog', function($uibModalInstance, response)
     {
