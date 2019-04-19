@@ -6,7 +6,7 @@
 
 <div class="mgrole" >
         <div class="mgroletitel">Management Role:</div>
-        <select class="selectrole" id="selectclaimrole" 
+        <select class="form-control selectrole" id="selectclaimrole" 
             ng-model="vm.selectedManagementRole" ng-options="x for x in vm.claimRoles" />
         </div>
     <div class="ominfobtn">
@@ -109,7 +109,7 @@
                     </div></div>
                 </div>
                 <div class="myunclaim text-right">
-                    <button ng-click="vm.unClaimQueue()" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
+                    <button ng-click="vm.unClaimQueue($index)" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
                 </div>
             </div>
         </div>

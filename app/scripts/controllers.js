@@ -200,14 +200,14 @@
         function claimQueue()
         {
             Pace.start();
-            console.log(vm.selecteditem, vm.selectedLdapGroup, vm.selectedManagementRole);
-
+            console.log(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole);
+            
             if (vm.selectedLdapGroup.length === 0 || vm.selectedManagementRole.length === 0 )
             {
                 alert("Please fill in the form");
                 return;
             }
-            return StaticDataFactory.claimQueue(vm.selecteditem,  vm.selectedManagementRole,vm.selectedLdapGroup).then(function(res)
+            return StaticDataFactory.claimQueue(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole).then(function(res)
             {
                 showResultDialog(res);
             }, function(error)
@@ -216,12 +216,16 @@
             });
         }
 
-        function unClaimQueue()
+        function unClaimQueue(index)
         {
-            return StaticDataFactory.unClaimQueue(vm.selecteditem,  vm.selectedManagementRole,vm.selectedLdapGroup)
+            var itemtodelete = vm.claimedRecords.record[index]; 
+            console.log(itemtodelete)
+            return StaticDataFactory.unClaimQueue(itemtodelete.businessdomain,itemtodelete.servapplname,itemtodelete.role, itemtodelete.claimrole)
             .then(function(res)
             {
-            	showResultDialog(res);
+                vm.claimedRecords.record.splice(index,1);
+                showResultDialog(res);
+                //getclaimedrecordslist();
             }, function (error)
             {
             	showResultDialog(error);

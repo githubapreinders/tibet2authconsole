@@ -16,9 +16,9 @@
             GetClaimedRecordsList : GetClaimedRecordsList
         };
 
-        function claimQueue(queue,  claimrole, role)
+        function claimQueue(businessdomain, servapplname, role, claimrole)
         {
-            var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
+            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>"
             return $http({method: 'POST',url: API_URL + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
@@ -29,11 +29,11 @@
             });
         }
 
-        function unClaimQueue(queue, claimrole, role)
+        function unClaimQueue(businessdomain, servapplname,  role, claimrole,)
         {
-            var xmlstring = "<input><queue>" + queue + "</queue><claimrole>" + claimrole + "</claimrole><role>" + role + "</role></input>"
+            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>"
             console.log(xmlstring);
-            return $http({method: 'POST',url: API_URL + '/unclaimqueues', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
+            return $http({method: 'POST',url: API_URL + '/unclaimapplications', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
             	console.log('reply from server:' , response.data);
