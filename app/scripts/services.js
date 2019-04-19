@@ -12,7 +12,8 @@
             getAllTibcoQueues : getAllTibcoQueues,
             claimQueue : claimQueue,
             unClaimQueue :unClaimQueue,
-            GetClaimRoleList : GetClaimRoleList
+            GetClaimRoleList : GetClaimRoleList, 
+            GetClaimedRecordsList : GetClaimedRecordsList
         };
 
         function claimQueue(queue,  claimrole, role)
@@ -66,6 +67,22 @@
                 var afterCnv = xml.xmlToJSON(data.data)
 
                 console.log("functie get claimrolelist ophalen", afterCnv);
+                return afterCnv;
+
+            },function (error)
+            {
+              console.log("server error :", error );
+              return error;
+            });
+        }
+
+        function GetClaimedRecordsList()
+        {
+            return $http.get(API_URL + '/getclaimedrecords').then(function(data)
+            {
+                var afterCnv = xml.xmlToJSON(data.data)
+
+                console.log("alle claimed records na conversie naar json", afterCnv);
                 return afterCnv;
 
             },function (error)

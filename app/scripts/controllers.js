@@ -26,7 +26,7 @@
         vm.selectedManagementRole = "" ;
 
         vm.message = "Claim Application";
-        vm.message2 = "My Claimed Queues";
+        vm.message2 = "My Claimed Applications";
         vm.dummy = "dummy informatie voor de ingelogde user";
         vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
@@ -79,7 +79,7 @@
         //Initialisation
         getqueues();
         getclaimrolelist();
-        // getclaimedrecordslist();
+        getclaimedrecordslist();
        
         //Watching the inputbox for keystrokes, adding it to a filtered list.
         $scope.$watch(function()
@@ -125,19 +125,20 @@
 	            	console.log("esb");
 	            	if(qnamearray.length === 9)
 	            	{
-	            		vm.selectedservapp = vm.selecteditem.split('.')[6];
+                        vm.selectedservapp = vm.selecteditem.split('.')[4];
+                        break;                        
 	            	}
 	            	if(qnamearray.length === 8)
 	            	{
-	            		vm.selectedservapp = vm.selecteditem.split('.')[5];
+                        vm.selectedservapp = vm.selecteditem.split('.')[3];
+                        break;
 	            	}
-	            	break;
 
 	            }
 	            case "P2P" :
 	            {
 	            	console.log("p2p");
-	            	vm.selectedservapp = vm.selecteditem.split('.')[3];
+	            	vm.selectedservapp = vm.selecteditem.split('.')[2];
 	            	break;
 	            }
             }
@@ -175,15 +176,15 @@
             });
         }
 
-        //Getting a list of all my claimed records
-        // function getclaimedrecordslist()
-        // {
-        //     StaticDataFactory.GetClaimedRecordsList().then(function(data)
-        //     {
-        //         vm.claimedRoles = data.roles.role;
-        //         console.log("ClaimRecords die binnenkomen:", data.roles.role[1]);
-        //     });
-        // }
+        // Getting a list of all my claimed records
+        function getclaimedrecordslist()
+        {
+            StaticDataFactory.GetClaimedRecordsList().then(function(data)
+            {
+                vm.claimedRecords = data.claimedrecords;
+                console.log("ClaimRecords die binnenkomen:", data.claimedrecords);
+            });
+        }
 
         //Getting all the available Tibco queues
         function getqueues()
