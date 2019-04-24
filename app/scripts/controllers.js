@@ -24,7 +24,7 @@
         vm.itemselected  = "false";
         vm.selectedLdapGroup = "";
         vm.selectedManagementRole = "" ;
-
+        vm.someToggle = false;
         vm.message = "Claim Application";
         vm.message2 = "My Claimed Applications";
         vm.dummy = "dummy informatie voor de ingelogde user";
@@ -194,6 +194,7 @@
 
         function claimQueue()
         {
+            vm.someToggle=!vm.someToggle;
             Pace.start();
             console.log(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole);
             
@@ -206,7 +207,7 @@
             {
                 console.log(res.status);
                 showResultDialog(res);
-                getclaimedrecordslist();
+                vm.someToggle=!vm.someToggle;
             }, function(error)
             {
                 showResultDialog(error);
@@ -215,6 +216,7 @@
 
         function unClaimQueue(index)
         {
+            vm.someToggle=!vm.someToggle;
             var itemtodelete = vm.claimedRecords.record[index]; 
             console.log(itemtodelete)
             return StaticDataFactory.unClaimQueue(itemtodelete.businessdomain,itemtodelete.servapplname,itemtodelete.role, itemtodelete.claimrole)
@@ -223,7 +225,8 @@
                 vm.claimedRecords.record.splice(index,1);
                 //$scope.$apply();
                 showResultDialog(res);
-                getclaimedrecordslist();
+                vm.someToggle=!vm.someToggle;
+                //getclaimedrecordslist();
             }, function (error)
             {
             	showResultDialog(error);
@@ -268,10 +271,6 @@
     
                 });
 
-
-
-        	// console.log("show info claim application....");
-        	// showResultDialog({data: "Some info about application claim."})
         }
 
         function showinfomodal2()
@@ -280,6 +279,9 @@
         	showResultDialog({data: "Some info about show info my claimed queues."})
         }
 
+
+
+        
     })
 
 //info modal rechts bovenin

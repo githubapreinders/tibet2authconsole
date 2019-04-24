@@ -80,8 +80,7 @@
         {
             return $http.get(API_URL + '/getclaimedrecords').then(function(data)
             {
-                var afterCnv = xml.xmlToJSON(data.data)
-                
+                var afterCnv = xml.xmlToJSON(data.data) 
                 console.log("alle claimed records na conversie naar json", afterCnv.claimedrecords.record.length);
                 if(afterCnv.claimedrecords.record.hasOwnProperty('length'))
                 {
