@@ -51,7 +51,7 @@
             placeholder="Please enter your LDAP group" />
     </div>
     <div class="omclaimbtn">
-    <button ng-click="vm.claimQueue()" class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
+    <button ng-click="vm.claimQueue()" ng-disabled="vm.someToggle" class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
     </div>
 </div>
 <br><br>
@@ -109,7 +109,7 @@
                     </div></div>
                 </div>
                 <div class="myunclaim text-right">
-                    <button ng-click="vm.unClaimQueue($index)" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
+                    <button ng-click="vm.unClaimQueue($index)" ng-disabled="vm.someToggle" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
                 </div>
             </div>
         </div>
