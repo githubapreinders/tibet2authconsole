@@ -118,13 +118,11 @@
     <div style="width:5%"></div>
 </div>
 
-<div ng-show="vm.showme" class="centerme">
+<div  class="centerme">
     <div class="row myrow">
-        <div ng-repeat-start="item in vm.queuelistFiltered">
-            <div ng-click="vm.selectQueue($index)">{{item}}</div>
+        <div ng-repeat="myitem in vm.claimedRecords.record">
+            <div >{{myitem}}</div>
         </div>
-        <div class="clearfix" ng-if="($index+1)%9==0"></div>
-        <div ng-repeat-end=""></div>
     </div>
 </div>
 <br>

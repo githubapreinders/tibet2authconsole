@@ -122,7 +122,6 @@
             {
 	            case "ESB" :
 	            {
-	            	console.log("esb");
 	            	if(qnamearray.length === 9)
 	            	{
                         vm.selectedservapp = vm.selecteditem.split('.')[4];
@@ -144,10 +143,6 @@
             }
 
             vm.selectedbusinessdomain = vm.selecteditem.split('.')[1];
-
-        	console.log("businessunit: ", vm.selectedbusinessdomain);
-            console.log("servappname: ", vm.selectedservapp);
-
             var appobj = {};
 
             vm.queuelistFiltered.forEach(function(item)
@@ -209,7 +204,9 @@
             }
             return StaticDataFactory.claimQueue(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole).then(function(res)
             {
+                console.log(res.status);
                 showResultDialog(res);
+                getclaimedrecordslist();
             }, function(error)
             {
                 showResultDialog(error);
@@ -224,8 +221,9 @@
             .then(function(res)
             {
                 vm.claimedRecords.record.splice(index,1);
+                //$scope.$apply();
                 showResultDialog(res);
-                //getclaimedrecordslist();
+                getclaimedrecordslist();
             }, function (error)
             {
             	showResultDialog(error);
