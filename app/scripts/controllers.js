@@ -30,52 +30,7 @@
         vm.dummy = "dummy informatie voor de ingelogde user";
         vm.ldapgroup = "BeheerSectie4";
         vm.claimRoles = [];
-        vm.myclaimedroles = {
-            "claimedrecords": {
-              "record": [
-                {
-                  "bd": "CustomerAdministration",
-                  "sa": "PartyMovement",
-                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
-                  "cr": "GRAPAB-TIBET2-NNPENSIONS",
-                  "q": [
-                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request",
-                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request.BPM13",
-                    "ESB.CustomerAdministration.BS.BusinessProcess.PartyMovement.1.MoveParty.1.Request.Prov",
-                    "P2P.CustomerAdministration.PartyMovement.MoveParty.Request"
-                  ]
-                },
-                {
-                  "bd": "Webenvironment",
-                  "sa": "AccessRightsManagement",
-                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
-                  "cr": "GRAPAB-TIBET2-NNPENSIONS",
-                  "q": [
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.1.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.2.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.3.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.4.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.5.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.AccessRightsManagement.1.GetUserAndOfficeDataIntermediary.6.Request",
-                    "ESB.Webenvironment.BS.AccessRightsManagement.RightsManagement.1.GetUserAndOfficeDataIntermediary.2.Request"
-                  ]
-                },
-                {
-                  "bd": "PensionsSMB",
-                  "sa": "ArchivingDocument",
-                  "rol": "CN=GRAPAB-nJAMS_Application_Role_Hypotheken,OU=Application Security Groups,OU=Groups,OU=PRD,OU=AB,OU=Tenants,DC=INSIM,DC=BIZ",
-                  "cr": "GRAPAB-TIBET2-NNBANK",
-                  "q": [
-                    "ESB.PensionsSMB.BS.Document.ArchivingDocument.1.FindDocument.1.Request",
-                    "ESB.PensionsSMB.BS.Document.ArchivingDocument.1.GetDocument.1.Request"
-                  ]
-                }
-              ]
-            }
-          }
-
-          console.log("nieuw project Get Claimed Records",vm.myclaimedroles.claimedrecords.record);
-
+ 
         //Initialisation
         getqueues();
         getclaimrolelist();
@@ -117,26 +72,25 @@
         //Responding to the dropdown. The displayed list will contain the queues with the same businessdomain and applicationname.
         function selectQueue(index)
         {
+            if(vm.selecteditem === null)return;
+            
             var qnamearray = vm.selecteditem.split('.');
             switch(qnamearray[0].toUpperCase())
             {
 	            case "ESB" :
 	            {
-	            	if(qnamearray.length === 9)
-	            	{
-                        vm.selectedservapp = vm.selecteditem.split('.')[4];
-                        break;                        
-	            	}
-	            	if(qnamearray.length === 8)
-	            	{
                         vm.selectedservapp = vm.selecteditem.split('.')[3];
                         break;
-	            	}
+
+                }
+                case "DS" :
+	            {
+                        vm.selectedservapp = vm.selecteditem.split('.')[2];
+                        break;
 
 	            }
 	            case "P2P" :
 	            {
-	            	console.log("p2p");
 	            	vm.selectedservapp = vm.selecteditem.split('.')[2];
 	            	break;
 	            }
@@ -144,20 +98,31 @@
 
             vm.selectedbusinessdomain = vm.selecteditem.split('.')[1];
             var appobj = {};
-
-            vm.queuelistFiltered.forEach(function(item)
-            {
-                if(item.split('.')[1] === vm.selectedbusinessdomain && item.includes('.' + vm.selectedservapp + '.'))
-                {
-                	appobj[item] = 'true';
-                }
-            })
+            console.log("length of filteredlist: ", vm.queuelistFiltered.length);
+            // vm.queuelistFiltered.forEach(function(item)
+            // {
+            //     if(item.split('.')[1] === vm.selectedbusinessdomain && item.includes('.' + vm.selectedservapp + '.'))
+            //     {
+            //         console.log(" theitem: ", item);
+            //     	appobj[item] = 'true';
+            //     }
+            // })
 
             vm.applist = [];
-            Object.keys(appobj).forEach(function(key)
+            // Object.keys(appobj).forEach(function(key)
+            // {
+            // 		vm.applist.push(key);
+            // });
+            console.log(vm.selectedbusinessdomain, vm.selectedservapp);
+            vm.queues.forEach(function(item)
             {
-            		vm.applist.push(key);
+                // console.log(item);
+                if(item.servapplname === vm.selectedservapp && item.businessdomain === vm.selectedbusinessdomain)
+                {
+                    vm.applist.push(item.name);
+                }
             });
+
 
         }
 
@@ -201,12 +166,13 @@
             if (vm.selectedLdapGroup.length === 0 || vm.selectedManagementRole.length === 0 )
             {
                 alert("Please fill in the form");
+                vm.someToggle=!vm.someToggle;
                 return;
             }
             return StaticDataFactory.claimQueue(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole).then(function(res)
             {
-                console.log(res.status);
                 showResultDialog(res);
+                getclaimedrecordslist();
                 vm.someToggle=!vm.someToggle;
             }, function(error)
             {

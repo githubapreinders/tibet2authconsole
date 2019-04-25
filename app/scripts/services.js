@@ -81,19 +81,16 @@
             return $http.get(API_URL + '/getclaimedrecords').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data) 
-                console.log("alle claimed records na conversie naar json", afterCnv.claimedrecords.record.length);
-                if(afterCnv.claimedrecords.record.hasOwnProperty('length'))
+                afterCnv.claimedrecords.record.splice(0,1);
+                
+                afterCnv.claimedrecords.record.forEach( function(element)
                 {
-                    return afterCnv;
-                }
-                else
-                {
-                    var newobj = [];
-                    newobj.push(afterCnv.claimedrecords.record);
-                    afterCnv.claimedrecords.record = newobj;
-                    console.log(afterCnv);
-                    return afterCnv;
-                }
+                    element.queue.splice(0,1);   
+                });
+                
+                console.log("alle claimed records na conversie naar json", afterCnv.claimedrecords.record);
+                return afterCnv;
+            
 
             },function (error)
             {
