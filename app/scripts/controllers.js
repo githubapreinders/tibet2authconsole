@@ -24,7 +24,7 @@
         vm.itemselected  = "false";
         vm.selectedLdapGroup = "";
         vm.selectedManagementRole = "" ;
-        vm.someToggle = false;
+        vm.disableButton = false;
         vm.message = "Claim Application";
         vm.message2 = "My Claimed Applications";
         vm.dummy = "dummy informatie voor de ingelogde user";
@@ -159,21 +159,21 @@
 
         function claimQueue()
         {
-            vm.someToggle=!vm.someToggle;
+            vm.disableButton=!vm.disableButton;
             Pace.start();
             console.log(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole);
             
             if (vm.selectedLdapGroup.length === 0 || vm.selectedManagementRole.length === 0 )
             {
                 alert("Please fill in the form");
-                vm.someToggle=!vm.someToggle;
+                vm.disableButton=!vm.disableButton;
                 return;
             }
             return StaticDataFactory.claimQueue(vm.selectedbusinessdomain, vm.selectedservapp, vm.selectedLdapGroup, vm.selectedManagementRole).then(function(res)
             {
                 showResultDialog(res);
                 getclaimedrecordslist();
-                vm.someToggle=!vm.someToggle;
+                vm.disableButton=!vm.disableButton;
             }, function(error)
             {
                 showResultDialog(error);
@@ -182,16 +182,17 @@
 
         function unClaimQueue(index)
         {
-            vm.someToggle=!vm.someToggle;
+            vm.disableButton=!vm.disableButton;
             var itemtodelete = vm.claimedRecords.record[index]; 
             console.log(itemtodelete)
             return StaticDataFactory.unClaimQueue(itemtodelete.businessdomain,itemtodelete.servapplname,itemtodelete.role, itemtodelete.claimrole)
             .then(function(res)
             {
+
                 vm.claimedRecords.record.splice(index,1);
                 //$scope.$apply();
                 showResultDialog(res);
-                vm.someToggle=!vm.someToggle;
+                vm.disableButton=!vm.disableButton;
                 //getclaimedrecordslist();
             }, function (error)
             {

@@ -51,7 +51,7 @@
             placeholder="Please enter your LDAP group" />
     </div>
     <div class="omclaimbtn">
-    <button ng-click="vm.claimQueue()" ng-disabled="vm.someToggle" class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
+    <button ng-click="vm.claimQueue()" ng-disabled="vm.disableButton" class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
     </div>
 </div>
 <br><br>
@@ -73,19 +73,16 @@
     <div style="width:5%"></div>
 </div>
 <br>
+<div  ng-show="vm.claimedRecords.record.length > 0 ">
+    <!-- <div> -->
 <hr>
 <br>
 <!-- My Claimed Queues header -->
-<div class="flexrow">
+<div class="flexrow" >
     <div class="filler"></div>
-    <h1 class="myheader">{{vm.message2}}</h1>
+    <h1  class="myheader">{{vm.message2}}</h1>
     <div class="filler"></div>
 
-    <!-- Optie voor een tweede infobutton -->
-    <!-- <span id="btn_toggle" class="fa-stack  infobutton " ng-click="vm.showinfomodal2()">
-            <i class="fa fa-square-o fa-stack-2x"></i>
-            <i class="fa fa-info fa-stack-1x "></i>
-        </span> -->
 </div>
 
 <!-- Repeater my claimed queues -->
@@ -101,7 +98,6 @@
                     <label>Application name: </label>{{myitem.servapplname}}<br>
                     <label>Management role: </label>{{myitem.claimrole}}<br>
                     <label>LDAP-group: </label>{{myitem.role}}<br>
-                    <!-- <label>Alle q's:</label>  <span class="emphasis"> {{myitem.q}}</span><br> -->
                     <label>Queues:</label><div class="queues">
                     <div class="centerme" ng-repeat="myitem in myitem.queue" ng-class-odd="'even'"
                     ng-class-even="'odd'">
@@ -109,13 +105,14 @@
                     </div></div>
                 </div>
                 <div class="myunclaim text-right">
-                    <button ng-click="vm.unClaimQueue($index)" ng-disabled="vm.someToggle" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
+                    <button ng-click="vm.unClaimQueue($index)" ng-disabled="vm.disableButton" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div style="width:5%"></div>
+</div>
 </div>
 
 <br><br><br>
