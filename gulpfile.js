@@ -23,7 +23,7 @@ gulp.task('default',function()
 
 });
 
-gulp.task('js', function () {
+gulp.task('js', function () { 
     gulp.src(['app/js/jquery.js','app/js/angular.js','app/js/controller.js', 'app/js/*.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('main.min.js'))
@@ -156,7 +156,7 @@ gulp.task('minifyCss', function()
 
 gulp.task('uglifyJs', function()
 {
-    return gulp.src(['app/scripts/application.js','app/scripts/controllers.js','app/scripts/directives.js','app/scripts/services.js'])
+    return gulp.src(['app/scripts/application.js','app/scripts/controllers.js','app/scripts/services.js'])
         .pipe(concat('scripts.min.js'))
         .pipe(strip())
         .pipe(stripDebug())
@@ -169,7 +169,7 @@ gulp.task('uglifyJs', function()
 
 gulp.task('handleAngular', function()
 {
-    return gulp.src(["app/bower_components/jquery/dist/jquery.min.js","app/bower_components/angular/angular.min.js","app/bower_components/angular-ui-router/release/angular-ui-router.min.js","app/bower_components/angular-sanitize/angular-sanitize.min.js"])
+    return gulp.src(["app/bower_components/jquery/dist/jquery.min.js","app/bower_components/angular/angular.min.js","app/bower_components/angular-ui-router/release/angular-ui-router.min.js","app/bower_components/angular-sanitize/angular-sanitize.min.js", "app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js", "app/media/pace.min.js","app/bower_components/xml-to-json/xml.min.js"])
     .pipe(gulp.dest('webapp/scripts'));
 });
 

@@ -18,7 +18,7 @@
 
         function claimQueue(businessdomain, servapplname, role, claimrole)
         {
-            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>"
+            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>";
             return $http({method: 'POST',url: API_URL + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
@@ -29,9 +29,9 @@
             });
         }
 
-        function unClaimQueue(businessdomain, servapplname,  role, claimrole,)
+        function unClaimQueue(businessdomain, servapplname,  role, claimrole)
         {
-            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>"
+            var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>";
             console.log(xmlstring);
             return $http({method: 'POST',url: API_URL + '/unclaimapplications', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
@@ -49,7 +49,7 @@
         {
           return $http.get(API_URL + '/getalltibcoqueues').then(function(data)
             {
-                var afterCnv = xml.xmlToJSON(data.data)
+                var afterCnv = xml.xmlToJSON(data.data);
 
                 console.info("returning json from server with status ",afterCnv);
                 return afterCnv;
@@ -64,7 +64,7 @@
         {
           return $http.get(API_URL + '/getclaimrolelist').then(function(data)
             {
-                var afterCnv = xml.xmlToJSON(data.data)
+                var afterCnv = xml.xmlToJSON(data.data);
 
                 console.log("functie get claimrolelist ophalen", afterCnv);
                 return afterCnv;
@@ -80,25 +80,21 @@
         {
             return $http.get(API_URL + '/getclaimedrecords').then(function(data)
             {
-                var afterCnv = xml.xmlToJSON(data.data) 
+                var afterCnv = xml.xmlToJSON(data.data) ;
                 afterCnv.claimedrecords.record.splice(0,1);
                 
                 afterCnv.claimedrecords.record.forEach( function(element)
                 {
                     element.queue.splice(0,1);   
-                });
-                
+                });               
                 console.log("alle claimed records na conversie naar json", afterCnv.claimedrecords.record);
                 return afterCnv;
-            
-
             },function (error)
             {
               console.log("server error :", error );
               return error;
             });
         }
-
-    })
+    });
 
 })();   
