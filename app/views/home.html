@@ -2,20 +2,20 @@
     <div class="filler"></div>
     <h1 class="myheader claimheader">{{vm.message}}</h1>
     <div class="filler"></div>
-<br><br><br><br><br>
+    <br><br><br><br><br>
 
-<div class="mgrole" >
+    <div class="mgrole">
         <div class="mgroletitel">Management Role:</div>
-        <select class="form-control selectrole" id="selectclaimrole" 
-            ng-model="vm.selectedManagementRole" ng-options="x for x in vm.claimRoles" />
-        </div>
-    <div class="ominfobtn">
-    <span id="btn_toggle" class="fa-stack infobutton " ng-click="vm.showinfomodal()">
-        <i class="fa fa-square-o fa-stack-2x"></i>
-        <i class="fa fa-info fa-stack-1x "></i>
-    </span>
+        <select class="form-control selectrole" id="selectclaimrole" ng-model="vm.selectedManagementRole"
+            ng-options="x for x in vm.claimRoles" />
     </div>
-   </div>
+    <div class="ominfobtn">
+        <span id="btn_toggle" class="fa-stack infobutton " ng-click="vm.showinfomodal()">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-info fa-stack-1x "></i>
+        </span>
+    </div>
+</div>
 
 <!-- Search bar en available queue -->
 <div class="flexrow">
@@ -33,11 +33,11 @@
     </div>
 
     <div class="claimfields filler">
-            <div style="display: flex; flex-direction: column;  margin-right:5%;">
-        <label for="selectclaimrole">Available Queues</label>
-        <select class="form-control" id="selectclaimrole" ng-options="item for item in vm.queuelistFiltered"
-            ng-model="vm.selecteditem" ng-change="vm.selectQueue()">
-        </select>
+        <div style="display: flex; flex-direction: column;  margin-right:5%;">
+            <label for="selectclaimrole">Available Queues</label>
+            <select class="form-control" id="selectclaimrole" ng-options="item for item in vm.queuelistFiltered"
+                ng-model="vm.selecteditem" ng-change="vm.selectQueue()">
+            </select>
         </div>
     </div>
 </div>
@@ -51,71 +51,66 @@
             placeholder="Please enter your LDAP group" />
     </div>
     <div class="omclaimbtn">
-    <button ng-click="vm.claimQueue()" ng-disabled="vm.someToggle" class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
+        <button ng-click="vm.claimQueue()" ng-disabled="vm.disableButton"
+            class="btn  btn-lg btn-success btn-primary claimbtn">CLAIM</button>
     </div>
 </div>
 <br><br>
-<div   ng-show="vm.selecteditem.length > 0 " class="flexrow"> 
-    <!-- om het onderstaande altijd zichtbaar te maken, onderstaande regel aan, bovenstaande regel uit- -->
-<!-- <div class="flexrow"> -->
+<div ng-show="vm.selecteditem.length > 0 " class="flexrow">
     <div style="width:5%"></div>
     <div class="yourselection">
         <div class="selection">Your selection</div>
         <label>Business domain: </label>{{vm.selectedbusinessdomain}}<br>
         <label>Application name:</label>{{vm.selectedservapp}}
         <p></p>
-        <label>Queues:</label><div class="queues">
-        <div class="centerme" ng-repeat="item in vm.applist" ng-class-odd="'even'"
-        ng-class-even="'odd'">
-            {{item}}
-        </div></div>
-    </div>
-    <div style="width:5%"></div>
-</div>
-<br>
-<hr>
-<br>
-<!-- My Claimed Queues header -->
-<div class="flexrow">
-    <div class="filler"></div>
-    <h1 class="myheader">{{vm.message2}}</h1>
-    <div class="filler"></div>
-
-    <!-- Optie voor een tweede infobutton -->
-    <!-- <span id="btn_toggle" class="fa-stack  infobutton " ng-click="vm.showinfomodal2()">
-            <i class="fa fa-square-o fa-stack-2x"></i>
-            <i class="fa fa-info fa-stack-1x "></i>
-        </span> -->
-</div>
-
-<!-- Repeater my claimed queues -->
-<div class="flexrow">
-    <div style="width:5%"></div>
-    <div class="myclaimedtable">
-
-        <div class="centerme" ng-repeat="myitem in vm.claimedRecords.record" ng-class-odd="'odd'"
-            ng-class-even="'even'">
-            <div class="row row-eq-height">
-                <div class="claimedinfo col-sm-9">
-                    <label>Businessdomain: </label>{{myitem.businessdomain}}<br>
-                    <label>Application name: </label>{{myitem.servapplname}}<br>
-                    <label>Management role: </label>{{myitem.claimrole}}<br>
-                    <label>LDAP-group: </label>{{myitem.role}}<br>
-                    <!-- <label>Alle q's:</label>  <span class="emphasis"> {{myitem.q}}</span><br> -->
-                    <label>Queues:</label><div class="queues">
-                    <div class="centerme" ng-repeat="myitem in myitem.queue" ng-class-odd="'even'"
-                    ng-class-even="'odd'">
-                        {{myitem}}
-                    </div></div>
-                </div>
-                <div class="myunclaim text-right">
-                    <button ng-click="vm.unClaimQueue($index)" ng-disabled="vm.someToggle" class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
-                </div>
+        <label>Queues:</label>
+        <div class="queues">
+            <div class="centerme" ng-repeat="item in vm.applist" ng-class-odd="'even'" ng-class-even="'odd'">
+                {{item}}
             </div>
         </div>
     </div>
-
     <div style="width:5%"></div>
 </div>
+<br>
+<div ng-show="vm.claimedRecords.record.length > 0 ">
+    <hr>
+    <br>
+    <!-- My Claimed Queues header -->
+    <div class="flexrow">
+        <div class="filler"></div>
+        <h1 class="myheader">{{vm.message2}}</h1>
+        <div class="filler"></div>
+    </div>
 
+    <!-- Repeater my claimed queues -->
+    <div class="flexrow">
+        <div style="width:5%"></div>
+        <div class="myclaimedtable">
+            <div class="centerme" ng-repeat="myitem in vm.claimedRecords.record" ng-class-odd="'odd'"
+                ng-class-even="'even'">
+                <div class="row row-eq-height">
+                    <div class="claimedinfo col-sm-9">
+                        <label>Businessdomain: </label>{{myitem.businessdomain}}<br>
+                        <label>Application name: </label>{{myitem.servapplname}}<br>
+                        <label>Management role: </label>{{myitem.claimrole}}<br>
+                        <label>LDAP-group: </label>{{myitem.role}}<br>
+                        <label>Queues:</label>
+                        <div class="queues">
+                            <div class="centerme" ng-repeat="myitem in myitem.queue" ng-class-odd="'even'"
+                                ng-class-even="'odd'">
+                                {{myitem}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myunclaim text-right">
+                        <button ng-click="vm.unClaimQueue($index)" ng-disabled="vm.disableButton"
+                            class="btn  btn-lg btn-danger btn-danger claimbtn">UNCLAIM</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width:5%"></div>
+    </div>
+</div>
 <br><br><br>
