@@ -131,7 +131,7 @@ gulp.task('copy_images', function()
 
 gulp.task('build',function(callback)
 {
-    runSequence('concatAndStash','removeDirs',['uglifyJs','handleAngular','copy_html','copy_images','copy_fonts'],'browser_Sync_build');
+    runSequence('compile_sass','concatAndStash','removeDirs',['uglifyJs','handleAngular','copy_html','copy_images','copy_fonts'],'browser_Sync_build');
 });
 
 
@@ -151,6 +151,7 @@ gulp.task('removeDirs', function()
 gulp.task('minifyCss', function()
 {
     return gulp.src('webapp/styles/main.css')
+
     .pipe(cssnano());
 });
 
