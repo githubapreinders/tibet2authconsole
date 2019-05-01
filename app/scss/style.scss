@@ -1,81 +1,137 @@
 body {
-font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-color:#676a6c;
+	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#676a6c;
 }
 
 .flexrow {
-display:flex;
+	display:flex;
 }
 
 label {
-
-font-size: 14px;
-font-weight: 600;
-
+	font-size: 14px;
+	font-weight: 600;
 }
+
 .btn {
-height: 45px;
+	height: 45px;
 }
 
-.omclaimbtn {
-margin-top:11px;
-margin-left:20px;
+.myqueues {
+	max-width: 850px;
+	}
+
+.myclaimedinfo {
+	padding-top: 20px;
+	padding-left: 40px;
+	padding-bottom: 20px;
+	display: -webkit-flex;
+	display: flex;
 }
+
+.subclaimedinfo {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.myclaimedtablebox{
+	padding-left:5.8%;
+	padding-right:6.2%;
+}
+
+.ldapbox{
+	padding-left:5.8%;
+	padding-right:6%;
+	display: -webkit-flex;
+	display: flex;
+	margin-right:5%;
+}
+
+.ldapgroup {
+	width:100%;
+	margin-top: 5px;
+	margin-right:27px;
+}
+
+.searchbox {
+	padding-left:5.8%;
+}
+
+.avqbox {
+	padding-right:6.2%;
+}
+
+.balkengum {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.searchinput {
+	height: 45px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+	border-radius: 4px;
+	width:100%;
+	display:inline-block;
+}
+
 .claimbtn {
-margin-top:27px;
-height: 45px;
-width: 200px;
+	margin-top:30px;
+	margin-right:5.7%;
+	height: 45px;
+	width: 200px;
 }
 
 .ominfobtn {
-margin-right:5%;
+	margin-left:5%;
 	}
 
 .filler
 {
-flex-grow: 1;
+	flex-grow: 1;
 }
 
 .form-group
 {
-margin-left:5%;
-margin-right:5%;
-}
-
-.claimfields {
-margin-left: 50px;
-margin-right: 50px;
+	margin-left:5%;
+	margin-right:5%;
 }
 
 .form-control {
-height: 45px;
+	height: 45px;
 }
 
 .btn-primary {
-background-color: #1ab394;
+	background-color: #1ab394;
 	border-color: #1ab394;
 }
 
 .btn-danger {
-background-color: #ed5565;
+	background-color: #ed5565;
 	border-color: #ed5565;
 }
 
 .yourselection {
-width:90%;
-padding-top: 20px;
-padding-left: 40px;
-padding-bottom: 20px;
-background-color: #ffffff;
-border: 1px solid #ccc;
+	margin-left:5%;
+	margin-right:5%;
+	width:100%;
+	padding-top: 20px;
+	padding-left: 40px;
+	padding-bottom: 20px;
+	background-color: #ffffff;
+	border: 1px solid #ccc;
 	border-radius: 4px;
-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
 }
 
 .infobutton
 {
-margin-top:30px;
-margin-right:10px;
+	margin-top:28px;
+	margin-right:10px;
 }
 
 .emphasis
@@ -84,97 +140,196 @@ margin-right:10px;
 	font-style:oblique;
 }
 .pace-done {
-background-color:#f3f3f4;
+	background-color:#b4e2ff;
+	// background-color:#f3f3f4; Tbv GUI3
 }
-.pace 
+.pace
 {
--webkit-pointer-events: none;
-pointer-events: none;
--webkit-user-select: none;
--moz-user-select: none;
-user-select: none;
-}
-
-.pace-inactive 
-{
-display: none;
+	-webkit-pointer-events: none;
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
 }
 
-.pace .pace-progress 
+.pace-inactive
 {
-background: rgb(24, 168, 101);
-position: fixed;
-z-index: 2000;
-top: 0;
-right: 100%;
-width: 100%;
-height: 2px;
+	display: none;
+}
+
+.pace .pace-progress
+{
+	background: rgb(24, 168, 101);
+	position: fixed;
+	z-index: 2000;
+	top: 0;
+	right: 100%;
+	width: 100%;
+	height: 2px;
 }
 
 .myclaimedtable {
-width:90%;
-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
-border-radius: 4px;
+	width:90%;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+	border-radius: 4px;
 }
 
-.odd {  border-bottom: 1px solid #c4c2c2;
-background-color:white; }
-.even {  border-bottom: 1px solid #c4c2c2;
-background-color: #f3f3f4; }
-
-.claimedinfo {
-padding-top: 20px;
-padding-left: 40px;
-padding-bottom: 20px;
-
+.odd {
+	border-bottom: 1px solid #c4c2c2;
+	background-color:white;
 }
 
-.myunclaim {
-padding-right: 25px;
-padding-top: 20px;
+.even {
+	border-bottom: 1px solid #c4c2c2;
+	background-color: #f3f3f4;
 }
 
 hr {
-margin-top: 5px;
-margin-bottom: 5px;
-border-width: 10px;
-border-color: #c4c2c2;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-width: 10px;
+	border-color: #c4c2c2;
 }
 
-.ldap {
-width: 78%  ;
-margin-top:15px;
-line-height: 1.33333;
-border-radius: 6px !important;
-}
 .mgrole{
-margin-right: 20px;
-margin-top: 15px;
-font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-color:#676a6c;
-font-size: 14px;
-
+	margin-right: 5.5%;
+	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#676a6c;
+	font-size: 14px;
 }
 .mgroletitel{
-font-weight: 600;
+	font-weight: 600;
 }
 .selectrole {
-width:230px;
-}
-
-.claimheader{
-margin-left:39%;
-position: absolute;
+	width:230px;
 }
 
 .queues {
-border-top: 1px solid #c4c2c2;
-max-width: 850px;
+	border-top: 1px solid #c4c2c2;
+	max-width: 850px;
 }
 
 .selection {
-font-size: 20px;
-font-weight: 600;
-margin-bottom:15px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom:15px;
+}
+
+@media screen and (max-width: 767px) {
+	body {
+		font-size: 10px;
+	}
+
+	h1 {
+		font-size: 30px;
+	}
+
+	.claimbuttonbox {
+		display:block;
+	}
+	.searchbox {
+		padding-right:5.7%;
+	}
+
+	.myclaimedheader{
+		margin-left:10%;
+		position: absolute;
+	}
+
+	.selectrole {
+		width: 140px;
+		font-size: 10px;
+	}
+
+	.claimbtn {
+		margin-top: 27px;
+	}
+
+	.avqbox {
+		margin-left:30px;
+		max-width: 735px;
+	}
+
+	.subclaimedinfo {
+		display: block;
+	}
+
+	.myclaimedinfo {
+		display: block;
+	}
+
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	.claimheader{
+		margin-left:10%;
+		position: absolute;
+	}
+	.myclaimedheader{
+		margin-left:10%;
+		position: absolute;
+	}
+
+	.myclaimedinfo {
+		box-sizing: content-box;
+	}
+	.subclaimedinfo {
+		display: block;
+	}
+	.queuesx {
+		margin-top: 270px;
+		margin-left: -300px;
+	}
+
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+	.claimheader{
+		margin-left:39%;
+		position: absolute;
+	}
+
+	.myclaimedheader{
+		margin-left:35%;
+	}
+
+	.subclaimedinfo {
+		display: block;
+	}
+	
+	.myqueues {
+		margin-left: -150px;
+	}
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1561px) {
+	.claimheader{
+		margin-left:39%;
+		position: absolute;
+	}
+
+	.myclaimedheader{
+		margin-left:35%;
+	}
+
+	.subclaimedinfo {
+		display: block;
+	}
+
+	.myqueues {
+		margin-left: -220px;
+	}
+}
+
+@media screen and (min-width: 1562px) {
+	.claimheader{
+		margin-left:39%;
+		position: absolute;
+	}
+
+	.myclaimedheader{
+		margin-left:35%;
+	}
 
 }
