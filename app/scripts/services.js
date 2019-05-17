@@ -2,15 +2,15 @@
 
     'use strict';
     var app = angular.module('claimapp');
-   
-    app.factory('StaticDataFactory', function ($http) {        
-       
+    
+    app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
+    app.factory('StaticDataFactory', function ($http, API_URL) {        
+        getApiUrl();
         return {
-            
             getAllTibcoQueues: getAllTibcoQueues,
             claimQueue: claimQueue,
             unClaimQueue: unClaimQueue,
-            GetClaimRoleList: GetClaimRoleList,
+            getAvailableRoles: getAvailableRoles,
             GetClaimedRecordsList: GetClaimedRecordsList
         };
 
@@ -111,9 +111,9 @@
             });
         }
 
-        function GetClaimRoleList()
+        function getAvailableRoles()
         {
-          return $http.get(API_URL + '/getclaimrolelist').then(function(data)
+          return $http.get(API_URL + '/getavailableroles').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data);
 
@@ -131,7 +131,9 @@
             return $http.get(API_URL + '/getclaimedrecords').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data) ;
+                console.log("converting.....", afterCnv.claimedrecords.record.length);
                 afterCnv.claimedrecords.record.splice(0,1);
+                console.log("converting", afterCnv.claimedrecords.record.length);
                 
                 afterCnv.claimedrecords.record.forEach( function(element)
                 {

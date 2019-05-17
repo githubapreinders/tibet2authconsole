@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('claimapp')
-        .controller('IndexController', function (StaticDataFactory, $scope, $uibModal) {
+        .controller('IndexController', function (StaticDataFactory, $scope, $uibModal, $timeout) {
 
             console.log('IndexController');
             var vm = this;
@@ -29,10 +29,14 @@
             vm.ldapgroup = "BeheerSectie4";
             vm.claimRoles = [];
 
-            //Initialisation
-            getqueues();
-            getclaimrolelist();
-            getclaimedrecordslist();
+            //Initialisation, making sure this happens after services.js initialises the API-urls.
+            $timeout(function()
+            {
+                getAvailableRoles();
+                getqueues();
+                getclaimedrecordslist();
+            },0);
+            
 
             //Watching the inputbox for keystrokes, adding it to a filtered list.
             $scope.$watch(function () {
@@ -99,10 +103,11 @@
             }
 
             //Getting a list of all available claim roles
-            function getclaimrolelist() {
-                StaticDataFactory.GetClaimRoleList().then(function (data) {
+            function getAvailableRoles() {
+                StaticDataFactory.getAvailableRoles().then(function (data) {
                     vm.claimRoles = data.roles.role;
-                    console.log("ClaimRoles die binnenkomen:", data.roles.role[1]);
+                    vm.selectedManagementRole = vm.claimRoles[0];
+                    console.log("ClaimRoles die binnenkomen:", elem);
                 });
             }
 
