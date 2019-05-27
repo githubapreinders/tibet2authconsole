@@ -17,7 +17,6 @@
         function getApiUrl()
         {
             var theurl = window.location.hostname;
-            
             switch(theurl)
             {
                 case "localhost" :
@@ -26,37 +25,37 @@
                     break;
                 }
                 //Development environment url
-                case "https://srdzzapp0329.insim.biz":
+                case "srdzzapp0329.insim.biz":
                 {
                     app.constant('API_URL', "https://srdzzapp0329.insim.biz/ija_tibet2/api"); 
                     break;
                 }
                 //Test environment url
-                case "https://srtzzapp0301.insim.biz":
+                case "srtzzapp0301.insim.biz":
                 {
                     app.constant('API_URL', "https://srtzzapp0301.insim.biz/ija_tibet2/api"); 
                     break;
                 }
                 //Acceptance environment url 1
-                case "https://srazzapp0384.insim.biz":
+                case "srazzapp0384.insim.biz":
                 {
                     app.constant('API_URL', "https://srazzapp0384.insim.biz/ija_tibet2/api"); 
                     break;
                 }
                 //Acceptance environment url 2
-                case "https://srazzapp0385.insim.biz":
+                case "srazzapp0385.insim.biz":
                 {
                     app.constant('API_URL', "https://srazzapp0385.insim.biz/ija_tibet2/api"); 
                     break;
                 }
                 //Production environment url 1
-                case "https://srazzapp0430.insim.biz":
+                case "srazzapp0430.insim.biz":
                 {
                     app.constant('API_URL', "https://srazzapp0430.insim.biz/ija_tibet2/api"); 
                     break;
                 }                
                 //Production environment url 2
-                case "https://srazzapp0431.insim.biz":
+                case "srazzapp0431.insim.biz":
                 {
                     app.constant('API_URL', "https://srazzapp0431.insim.biz/ija_tibet2/api"); 
                     break;
