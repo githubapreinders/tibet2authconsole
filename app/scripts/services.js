@@ -1,74 +1,85 @@
 (function () {
     'use strict';
     var app = angular.module('claimapp');    
-    getApiUrl();
-    function getApiUrl()
+        
+    app.factory('urlfactory', function()
+    {
+        var API_URL="";
+        return{
+            getApiUrl:getApiUrl           
+        };
+
+        function getApiUrl()
     {
         var theurl = window.location.hostname;
-        console.log("theurl ", theurl);
+        
         switch(theurl)
         {
             
             case "localhost" :
             {
-                app.constant(API_URL, "http://localhost:80/ija_tibet2/api");
-                console.log(API_URL);
+                API_URL = "http://localhost:80/ija_tibet2/api";
+                console.log("theurl ", API_URL);
                 break;
             }
             //Development environment url
             case "srdzzapp0329.insim.biz":
             {
-                app.constant('API_URL', "https://srdzzapp0329.insim.biz/ija_tibet2/api"); 
+                API_URL =  "https://srdzzapp0329.insim.biz/ija_tibet2/api";
+                console.log("dev url ", API_URL); 
                 break;
             }
             //Test environment url
             case "srtzzapp0301.insim.biz":
             {
-                app.constant('API_URL', "https://srtzzapp0301.insim.biz/ija_tibet2/api"); 
+                API_URL = "https://srtzzapp0301.insim.biz/ija_tibet2/api"; 
                 break;
             }
             //Acceptance environment url 1
             case "srazzapp0384.insim.biz":
             {
-                app.constant('API_URL', "https://srazzapp0384.insim.biz/ija_tibet2/api"); 
+                API_URL =  "https://srazzapp0384.insim.biz/ija_tibet2/api"; 
                 break;
             }
             //Acceptance environment url 2
             case "srazzapp0385.insim.biz":
             {
-                app.constant('API_URL', "https://srazzapp0385.insim.biz/ija_tibet2/api"); 
+                API_URL = "https://srazzapp0385.insim.biz/ija_tibet2/api"; 
                 break;
             }
             //Production environment url 1
             case "srazzapp0430.insim.biz":
             {
-                app.constant('API_URL', "https://srazzapp0430.insim.biz/ija_tibet2/api"); 
+                API_URL =  "https://srazzapp0430.insim.biz/ija_tibet2/api"; 
                 break;
             }                
             //Production environment url 2
             case "https://srazzapp0431.insim.biz":
             {
-                app.constant('API_URL', "https://srazzapp0431.insim.biz/ija_tibet2/api"); 
+                API_URL = "https://srazzapp0431.insim.biz/ija_tibet2/api"; 
                 break;
             }                
             default :
             {
-                app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
+                API_URL = "http://localhost:80/ija_tibet2/api";
                 break;
             }
+            return API_URL;
         }
-        
-    }    
+    }
+
+    });
 
 
-    app.factory('StaticDataFactory', function ($http) {        
+
+
+    app.factory('StaticDataFactory', function ( $http,urlfactory) {        
         return {
             getAllTibcoQueues: getAllTibcoQueues,
             claimQueue: claimQueue,
             unClaimQueue: unClaimQueue,
             getAvailableRoles: getAvailableRoles,
             GetClaimedRecordsList: GetClaimedRecordsList
-            
         };
 
             
@@ -77,7 +88,7 @@
         function claimQueue(businessdomain, servapplname, role, claimrole)
         {
             var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>";
-            return $http({method: 'POST',url: API_URL + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
+            return $http({method: 'POST',url: urlfactory.getApiUrl() + '/claimqueue', data : xmlstring, headers: {"Content-Type" : 'application/xml'}})
             .then(function success(response)
             {
                 return response;
@@ -91,7 +102,7 @@
         {
             var xmlstring = "<input><businessdomain>" + businessdomain + "</businessdomain><servapplname>" + servapplname + "</servapplname><claimrole>" +  claimrole + "</claimrole><role>" + role + "</role></input>";
             console.log(xmlstring);
-            return $http({ method: 'POST', url: API_URL + '/unclaimapplications', data: xmlstring, headers: { "Content-Type": 'application/xml' } })
+            return $http({ method: 'POST', url: urlfactory.getApiUrl() + '/unclaimapplications', data: xmlstring, headers: { "Content-Type": 'application/xml' } })
                 .then(function success(response) {
                     console.log('reply from server:', response.data);
                     return response;
@@ -103,7 +114,7 @@
 
         function getAllTibcoQueues()
         {
-          return $http.get(API_URL + '/getalltibcoqueues').then(function(data)
+          return $http.get(urlfactory.getApiUrl() + '/getalltibcoqueues').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data);
 
@@ -117,7 +128,7 @@
 
         function getAvailableRoles()
         {
-          return $http.get(API_URL + '/getavailableroles').then(function(data)
+          return $http.get(urlfactory.getApiUrl() + '/getavailableroles').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data);
 
@@ -132,7 +143,7 @@
 
         function GetClaimedRecordsList()
         {
-            return $http.get(API_URL + '/getclaimedrecords').then(function(data)
+            return $http.get(urlfactory.getApiUrl() + '/getclaimedrecords').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data) ;
                 console.log("converting.....", afterCnv.claimedrecords.record.length);
