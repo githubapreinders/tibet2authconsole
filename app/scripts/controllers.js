@@ -29,7 +29,9 @@
             vm.ldapgroup = "BeheerSectie4";
             vm.claimRoles = [];
 
+           
             //Initialisation, making sure this happens after services.js initialises the API-urls.
+            
             $timeout(function()
             {
                 getAvailableRoles();

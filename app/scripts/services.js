@@ -1,72 +1,77 @@
 (function () {
-
     'use strict';
-    var app = angular.module('claimapp');
-    
-    app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
-    app.factory('StaticDataFactory', function ($http, API_URL) {        
-        getApiUrl();
+    var app = angular.module('claimapp');    
+    getApiUrl();
+    function getApiUrl()
+    {
+        var theurl = window.location.hostname;
+        console.log("theurl ", theurl);
+        switch(theurl)
+        {
+            
+            case "localhost" :
+            {
+                app.constant(API_URL, "http://localhost:80/ija_tibet2/api");
+                console.log(API_URL);
+                break;
+            }
+            //Development environment url
+            case "srdzzapp0329.insim.biz":
+            {
+                app.constant('API_URL', "https://srdzzapp0329.insim.biz/ija_tibet2/api"); 
+                break;
+            }
+            //Test environment url
+            case "srtzzapp0301.insim.biz":
+            {
+                app.constant('API_URL', "https://srtzzapp0301.insim.biz/ija_tibet2/api"); 
+                break;
+            }
+            //Acceptance environment url 1
+            case "srazzapp0384.insim.biz":
+            {
+                app.constant('API_URL', "https://srazzapp0384.insim.biz/ija_tibet2/api"); 
+                break;
+            }
+            //Acceptance environment url 2
+            case "srazzapp0385.insim.biz":
+            {
+                app.constant('API_URL', "https://srazzapp0385.insim.biz/ija_tibet2/api"); 
+                break;
+            }
+            //Production environment url 1
+            case "srazzapp0430.insim.biz":
+            {
+                app.constant('API_URL', "https://srazzapp0430.insim.biz/ija_tibet2/api"); 
+                break;
+            }                
+            //Production environment url 2
+            case "https://srazzapp0431.insim.biz":
+            {
+                app.constant('API_URL', "https://srazzapp0431.insim.biz/ija_tibet2/api"); 
+                break;
+            }                
+            default :
+            {
+                app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
+                break;
+            }
+        }
+        
+    }    
+
+
+    app.factory('StaticDataFactory', function ($http) {        
         return {
             getAllTibcoQueues: getAllTibcoQueues,
             claimQueue: claimQueue,
             unClaimQueue: unClaimQueue,
             getAvailableRoles: getAvailableRoles,
             GetClaimedRecordsList: GetClaimedRecordsList
+            
         };
 
-        function getApiUrl()
-        {
-            var theurl = window.location.hostname;
-            switch(theurl)
-            {
-                case "localhost" :
-                {
-                    app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
-                    break;
-                }
-                //Development environment url
-                case "srdzzapp0329.insim.biz":
-                {
-                    app.constant('API_URL', "https://srdzzapp0329.insim.biz/ija_tibet2/api"); 
-                    break;
-                }
-                //Test environment url
-                case "srtzzapp0301.insim.biz":
-                {
-                    app.constant('API_URL', "https://srtzzapp0301.insim.biz/ija_tibet2/api"); 
-                    break;
-                }
-                //Acceptance environment url 1
-                case "srazzapp0384.insim.biz":
-                {
-                    app.constant('API_URL', "https://srazzapp0384.insim.biz/ija_tibet2/api"); 
-                    break;
-                }
-                //Acceptance environment url 2
-                case "srazzapp0385.insim.biz":
-                {
-                    app.constant('API_URL', "https://srazzapp0385.insim.biz/ija_tibet2/api"); 
-                    break;
-                }
-                //Production environment url 1
-                case "srazzapp0430.insim.biz":
-                {
-                    app.constant('API_URL', "https://srazzapp0430.insim.biz/ija_tibet2/api"); 
-                    break;
-                }                
-                //Production environment url 2
-                case "srazzapp0431.insim.biz":
-                {
-                    app.constant('API_URL', "https://srazzapp0431.insim.biz/ija_tibet2/api"); 
-                    break;
-                }                
-                default :
-                {
-                    app.constant('API_URL', "http://localhost:80/ija_tibet2/api");
-                    break;
-                }
-            }
-        }        
+            
         
         
         function claimQueue(businessdomain, servapplname, role, claimrole)
