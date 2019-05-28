@@ -64,8 +64,9 @@
                 API_URL = "http://localhost:80/ija_tibet2/api";
                 break;
             }
-            return API_URL;
+            
         }
+        return API_URL;
     }
 
     });
