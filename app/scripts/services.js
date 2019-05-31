@@ -147,14 +147,22 @@
             return $http.get(urlfactory.getApiUrl() + '/getclaimedrecords').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data) ;
-                console.log("converting.....", afterCnv.claimedrecords.record.length);
+                //console.log("converting.....", afterCnv.claimedrecords.record.length);
                 afterCnv.claimedrecords.record.splice(0,1);
-                console.log("converting", afterCnv.claimedrecords.record.length);
+                //console.log("converting", afterCnv.claimedrecords.record);
                 
-                afterCnv.claimedrecords.record.forEach( function(element)
+                var removeindexes = [];
+                afterCnv.claimedrecords.record.forEach( function(element, index)
                 {
-                    element.queue.splice(0,1);   
-                });               
+                    if (element.queue === 'dummy')
+                    {
+                        removeindexes.push(index);
+                    }
+                    else
+                    {
+                        element.queue.splice(0,1);   
+                    }
+                });
                 console.log("alle claimed records na conversie naar json", afterCnv.claimedrecords.record);
                 return afterCnv;
             },function (error)

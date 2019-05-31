@@ -67,37 +67,24 @@
             }
 
             //Responding to the dropdown. The displayed list will contain the queues with the same businessdomain and applicationname.
-            function selectQueue(index) {
+            function selectQueue() {
                 if (vm.selecteditem === null) return;
-
-                var qnamearray = vm.selecteditem.split('.');
-                switch (qnamearray[0].toUpperCase()) {
-                    case "ESB":
-                        {
-                            vm.selectedservapp = vm.selecteditem.split('.')[3];
-                            break;
-
-                        }
-                    case "DS":
-                        {
-                            vm.selectedservapp = vm.selecteditem.split('.')[2];
-                            break;
-
-                        }
-                    case "P2P":
-                        {
-                            vm.selectedservapp = vm.selecteditem.split('.')[2];
-                            break;
-                        }
+                var myitem;
+                for (var i =0 ; i, vm.queues.length ; i++)
+                {
+                    if (vm.queues[i].name === vm.selecteditem)
+                    {
+                        vm.selectedservapp = vm.queues[i].servapplname;
+                        vm.selectedbusinessdomain = vm.queues[i].businessdomain;
+                        console.log("gottit", vm.selectedservapp, vm.selectedbusinessdomain, vm.queues[i]);
+                        break;
+                    }
                 }
-
-                vm.selectedbusinessdomain = vm.selecteditem.split('.')[1];
                 var appobj = {};
                 console.log("length of filteredlist: ", vm.queuelistFiltered.length);
                 vm.applist = [];
                 console.log(vm.selectedbusinessdomain, vm.selectedservapp);
                 vm.queues.forEach(function (item) {
-                    // console.log(item);
                     if (item.servapplname === vm.selectedservapp && item.businessdomain === vm.selectedbusinessdomain) {
                         vm.applist.push(item.name);
                     }
