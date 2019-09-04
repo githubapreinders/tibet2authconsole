@@ -95,6 +95,11 @@
             function getAvailableRoles() {
                 StaticDataFactory.getAvailableRoles().then(function (data) {
                     vm.claimRoles = data.roles.role;
+                    if(typeof vm.claimRoles === 'string')
+                    {
+                        vm.claimRoles = [];
+                        vm.claimRoles.push(data.roles.role);
+                    }
                     vm.selectedManagementRole = vm.claimRoles[0];
                     console.log("ClaimRoles die binnenkomen:",  vm.claimRoles);
                 });
