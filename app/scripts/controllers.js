@@ -44,7 +44,9 @@
             $scope.$watch(function () {
                 return vm.inputbox;
             },
-                function (current, original) {
+                function (current, original) 
+                {
+                    
                     if (vm.queues === undefined) {
                         return;
                     }
@@ -53,11 +55,12 @@
                     }
                     vm.queuelistFiltered = [];
                     vm.queues.forEach(function (queueobject) {
-                        if (queueobject.name.toUpperCase().includes(current.toUpperCase())) {
+                        if (queueobject.name.toUpperCase().includes(current.toUpperCase())) 
+                        {
                             vm.queuelistFiltered.push(queueobject.name);
                         }
                     });
-
+                    
                 }, true);
 
             function erase() {
@@ -108,8 +111,11 @@
             // Getting a list of all my claimed records
             function getclaimedrecordslist() {
                 StaticDataFactory.GetClaimedRecordsList().then(function (data) {
+                    if(data === undefined)
+                    {
+                        return;
+                    }
                     vm.claimedRecords = data.claimedrecords;
-                    console.log("ClaimRecords die binnenkomen:", data.claimedrecords);
                 });
             }
 
@@ -144,16 +150,20 @@
             function unClaimQueue(index) {
                 vm.disableButton = !vm.disableButton;
                 var itemtodelete = vm.claimedRecords.record[index];
-                console.log(itemtodelete)
+                if(vm.selectedManagementRole !== itemtodelete.claimrole)
+                {
+                    showResultDialog({data:"You have to own this queue before you can unclaim it!"});
+                    vm.disableButton = !vm.disableButton;
+                    return;
+                }
                 return StaticDataFactory.unClaimQueue(itemtodelete.businessdomain, itemtodelete.servapplname, itemtodelete.role, itemtodelete.claimrole)
-                    .then(function (res) {
-
-                        vm.claimedRecords.record.splice(index, 1);
-                        showResultDialog(res);
-                        vm.disableButton = !vm.disableButton;
-                    }, function (error) {
-                        showResultDialog(error);
-                    });
+                .then(function (res) {
+                    vm.claimedRecords.record.splice(index, 1);
+                    showResultDialog(res);
+                    vm.disableButton = !vm.disableButton;
+                }, function (error) {
+                    showResultDialog(error);
+                });
             }
 
             function showResultDialog(serverreponse) {

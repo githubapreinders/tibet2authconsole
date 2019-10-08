@@ -147,9 +147,14 @@
             return $http.get(urlfactory.getApiUrl() + '/getclaimedrecords').then(function(data)
             {
                 var afterCnv = xml.xmlToJSON(data.data) ;
-                //console.log("converting.....", afterCnv.claimedrecords.record.length);
+                // console.log("converting.....", afterCnv.claimedrecords.record.queue);
+                
+                if (afterCnv.claimedrecords.record.queue === 'dummy')
+                {
+                    return;
+                }
+
                 afterCnv.claimedrecords.record.splice(0,1);
-                //console.log("converting", afterCnv.claimedrecords.record);
                 
                 var removeindexes = [];
                 afterCnv.claimedrecords.record.forEach( function(element, index)
