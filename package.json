@@ -5,7 +5,7 @@
   "main": "index.html",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "body-parser-xml": "^1.1.0",
+    "body-parser-xml": "^2.0.3",
     "browser-sync": "^2.11.1",
     "cors": "^2.8.4",
     "del": "^2.2.0",
